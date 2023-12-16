@@ -4,10 +4,10 @@ namespace DAL.Entities;
 
 public class Shipment
 {
-    public required int Id { get; set; }
-    public required int OrderId { get; set; }
-    public required ShipmentStatus Status { get; set; }
-    public required int DriverId { get; set; }
-    public required DateTime StartTime { get; set; }
-    public required DateTime EndTime { get; set; }
+    public int Id { get; set; }
+    public int OrderId { get; set; }
+    public ShipmentStatus Status { get; set; }
+    public int DriverId { get; set; }
+    public DateTime StartTime { get; set; }
+    public DateTime EndTime { get; set; }
 }
