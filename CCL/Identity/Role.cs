@@ -1,4 +1,4 @@
-﻿namespace DAL.Enums;
+﻿namespace CCL.Identity;
 
 public enum Role
 {
