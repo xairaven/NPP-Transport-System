@@ -1,4 +1,5 @@
-﻿using BLL.Services.Impl;
+﻿using BLL.DTO;
+using BLL.Services.Impl;
 using BLL.Services.Interfaces;
 using DAL.Entities;
 using DAL.Repositories.Interfaces;
@@ -9,17 +10,24 @@ namespace BLL.Tests;
 
 public class OrderServiceFake
 {
+    private OrderDto _orderDto;
+
+    public OrderServiceFake(OrderDto orderDto)
+    {
+        _orderDto = orderDto;
+    }
+    
     internal IOrderService Get()
     {
         var mockContext = new Mock<IUnitOfWork>();
 
         var expectedOrder = new Order
         {
-            Id = 1,
-            ClientId = 1,
-            Title = "Apples | 5kg",
-            Origin = "ATB",
-            Destination = "Alex Kovalov"
+            Id = _orderDto.Id,
+            ClientId = _orderDto.ClientId,
+            Title = _orderDto.Title,
+            Origin = _orderDto.Origin,
+            Destination = _orderDto.Destination
         };
 
         var mockDbSet = new Mock<IOrderRepository>();

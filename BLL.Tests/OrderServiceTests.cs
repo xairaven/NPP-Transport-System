@@ -1,4 +1,5 @@
-﻿using BLL.Services.Impl;
+﻿using BLL.DTO;
+using BLL.Services.Impl;
 using BLL.Services.Interfaces;
 using CCL;
 using CCL.Identity;
@@ -47,7 +48,16 @@ public class OrderServiceTests
         User user = new User(1, Role.Client, Role.Coordinator);
         SecurityContext.SetUser(user);
 
-        var orderServiceFake = new OrderServiceFake();
+        var expectedOrderDto = new OrderDto
+        {
+            Id = 1,
+            ClientId = 1,
+            Title = "Apples | 5kg",
+            Origin = "ATB",
+            Destination = "Alex Kovalov"
+        };
+        
+        var orderServiceFake = new OrderServiceFake(expectedOrderDto);
         var actualService = orderServiceFake.Get();
 
         // Act
@@ -55,14 +65,11 @@ public class OrderServiceTests
 
         // Assert
         Assert.True(
-            actualOrderDto is
-            {
-                Id: 1, 
-                ClientId: 1, 
-                Title: "Apples | 5kg", 
-                Origin: "ATB", 
-                Destination: "Alex Kovalov"
-            }
+            actualOrderDto.Id == expectedOrderDto.Id
+            && actualOrderDto.ClientId == expectedOrderDto.ClientId
+            && actualOrderDto.Title.Equals(expectedOrderDto.Title)
+            && actualOrderDto.Origin.Equals(expectedOrderDto.Origin)
+            && actualOrderDto.Destination.Equals(expectedOrderDto.Destination)
         );
     }
 }
